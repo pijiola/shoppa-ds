@@ -1,6 +1,6 @@
 # ShoppaAI Design System
 
-`@shopfully/shoppa-ds` — the shared component library for ShoppaAI apps.
+`@pijiola/shoppa-ds` — the shared component library for ShoppaAI apps.
 
 ## Quick start
 
@@ -9,20 +9,20 @@
 Add a `.npmrc` file to your project root:
 
 ```
-@shopfully:registry=https://npm.pkg.github.com
+@pijiola:registry=https://npm.pkg.github.com
 ```
 
 ### 2. Install
 
 ```bash
-npm install @shopfully/shoppa-ds
+npm install @pijiola/shoppa-ds
 ```
 
 ### 3. Import components
 
 ```tsx
-import { BottomBar } from "@shopfully/shoppa-ds";
-import "@shopfully/shoppa-ds/tokens";
+import { BottomBar } from "@pijiola/shoppa-ds";
+import "@pijiola/shoppa-ds/tokens";
 
 function App() {
   const [tab, setTab] = useState<"Shoppa" | "My list" | "Profile">("Shoppa");
@@ -35,7 +35,7 @@ function App() {
 If you only need the tokens (colors, spacing, radius) without the components:
 
 ```css
-@import "@shopfully/shoppa-ds/tokens";
+@import "@pijiola/shoppa-ds/tokens";
 ```
 
 Then use them in your CSS:
