@@ -46,5 +46,6 @@ Wait for the user's approval before proceeding. If changes are needed, iterate.
 - Push to the `main` branch on GitHub
 
 ## Done
-The push to `main` automatically triggers a GitHub Pages deployment.
-The public Storybook will be updated at: https://pijiola.github.io/shoppa-ds/
+After pushing to `main`, GitHub Actions automatically:
+- Deploys Storybook to GitHub Pages: https://pijiola.github.io/shoppa-ds/
+- Bumps the patch version, tags, and publishes to GitHub Packages
