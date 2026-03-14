@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — For Designers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #000c52;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      padding: 100px 120px;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    .slide--title {
+      background: #000c52;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .slide--content {
+      background: #fbf5e6;
+      color: #000c52;
+    }
+
+    .slide--accent {
+      background: linear-gradient(135deg, #43c4f4 0%, #760fca 100%);
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+
+    .slide--dark {
+      background: #000c52;
+    }
+
+    h1 {
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    h3 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .subtitle {
+      font-size: 28px;
+      font-weight: 400;
+      opacity: 0.85;
+
+      line-height: 1.5;
+    }
+
+    .slide--content h2 {
+      color: #760fca;
+    }
+
+    ul {
+      list-style: none;
+      font-size: 28px;
+      line-height: 2;
+    }
+
+    ul li::before {
+      content: "→";
+      margin-right: 16px;
+      font-weight: 600;
+    }
+
+    .slide--content ul li::before {
+      color: #43c4f4;
+    }
+
+    .slide--dark ul li::before {
+      color: #43c4f4;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    .slide--content .badge {
+      background: rgba(118, 15, 202, 0.1);
+      color: #760fca;
+    }
+
+    .slide--dark .badge {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Flow */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .flow-step {
+      border-radius: 16px;
+      padding: 32px 36px;
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .slide--content .flow-step {
+      background: rgba(0, 12, 82, 0.06);
+    }
+
+    .slide--dark .flow-step {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .slide--title .flow-step {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .flow-step .number {
+      font-size: 40px;
+      font-weight: 700;
+      color: #43c4f4;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .flow-step .label {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .flow-step .sublabel {
+      font-size: 15px;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+
+    .flow-arrow {
+      font-size: 32px;
+      opacity: 0.5;
+    }
+
+    /* Big quote */
+    .big-quote {
+      font-size: 44px;
+      font-weight: 600;
+      line-height: 1.4;
+      max-width: 800px;
+      color: #43c4f4;
+    }
+
+    .big-quote-author {
+      font-size: 22px;
+      opacity: 0.5;
+      margin-top: 32px;
+    }
+
+    /* Visual demo area */
+    .demo-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 40px;
+      align-items: center;
+    }
+
+    .demo-box {
+      background: rgba(0, 12, 82, 0.06);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .demo-box h3 {
+      font-size: 22px;
+      color: #760fca;
+      margin-bottom: 16px;
+    }
+
+    .demo-box p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .demo-box .demo-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: rgba(255, 213, 0, 0.12);
+      border-left: 4px solid #ffd500;
+      padding: 24px 32px;
+      border-radius: 0 12px 12px 0;
+      margin-top: 32px;
+      font-size: 24px;
+      line-height: 1.6;
+    }
+
+    .slide--dark .highlight-box {
+      background: rgba(255, 213, 0, 0.08);
+    }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .timeline-dot {
+      display: none;
+    }
+
+    .timeline-item::before {
+      content: "→";
+      font-size: 26px;
+      font-weight: 600;
+      color: #43c4f4;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+
+    .timeline-content {
+      font-size: 26px;
+      line-height: 1.4;
+    }
+
+    .timeline-content strong {
+      color: #760fca;
+    }
+
+    .slide--dark .timeline-content strong {
+      color: #43c4f4;
+    }
+
+    /* Terminal mock */
+    .terminal-mock {
+      background: #1e1e2e;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 700px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .terminal-bar {
+      background: #313244;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .terminal-title {
+      font-size: 13px;
+      color: #888;
+      margin-left: 8px;
+    }
+
+    .terminal-body {
+      padding: 24px;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #cdd6f4;
+    }
+
+    .terminal-dim {
+      color: #6c7086;
+    }
+
+    .terminal-typed {
+      color: #a6e3a1;
+    }
+
+    .terminal-prompt {
+      color: #cdd6f4;
+      font-size: 20px;
+      line-height: 2;
+    }
+
+    .slide--content .terminal-mock {
+      max-width: 700px;
+    }
+
+    /* Cheat sheet */
+    .cheat-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      color: #000c52;
+    }
+
+    .cheat-num {
+      width: 28px;
+      height: 28px;
+      background: #760fca;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      bottom: 32px;
+      right: 40px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .nav button {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s;
+    }
+
+    .nav button:hover {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: #43c4f4;
+      transition: width 0.3s;
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 40px;
+      left: 40px;
+      font-size: 16px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Slide 1: Title -->
+  <div class="slide slide--title active" data-slide="1">
+    <h1>Your designs,<br>shipped by you.</h1>
+    <p class="subtitle">How our Design System lets designers publish real components — no dev handoff required.</p>
+  </div>
+
+  <!-- Slide 2: The frustration -->
+  <div class="slide slide--content" data-slide="2">
+    <span class="badge">Sound familiar?</span>
+    <h2>The wait we've all lived through</h2>
+    <ul>
+      <li>You finish a component in Figma</li>
+      <li>You hand it off to the dev team</li>
+      <li>It sits in their backlog for weeks</li>
+      <li>When it finally ships, it doesn't look quite right</li>
+      <li>You go back and forth until it matches</li>
+    </ul>
+  </div>
+
+  <!-- Slide 3: What if -->
+  <div class="slide slide--accent" data-slide="3">
+    <h1>What if you could skip all of that?</h1>
+    <p class="subtitle">Design it. Review it. Ship it. All in the same afternoon.</p>
+  </div>
+
+  <!-- Slide 4: Meet your assistant -->
+  <div class="slide slide--content" data-slide="4">
+    <span class="badge">Meet Claude</span>
+    <h2>Your AI design-to-code assistant</h2>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;margin-bottom:40px;">
+      Claude is an AI that reads your Figma designs and writes the code for you. It understands your colors, spacing,
+      fonts, and icons — and turns them into real, working components.
+    </p>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;">
+      You don't need to write or understand any code. You just need to tell Claude what to do, in plain language, and
+      review the result visually.
+    </p>
+  </div>
+
+  <!-- Slide 5: How a session looks -->
+  <div class="slide slide--dark" data-slide="5">
+    <span class="badge">A Typical Session</span>
+    <h2>Here's what it actually looks like</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">You open a <strong>conversation with Claude</strong> on your computer</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">You share a <strong>Figma link</strong> to the component you want to update</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">Claude reads the design and <strong>writes the code automatically</strong></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">A <strong>live preview</strong> opens in your browser so you can check it</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">You say <strong>"yes, ship it"</strong> — and it's published</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: What you see -->
+  <div class="slide slide--content" data-slide="6">
+    <span class="badge">Visual Review</span>
+    <h2>You always review visually</h2>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;margin-bottom:32px;">
+      After Claude makes changes, a tool called Storybook opens in your browser. It shows the component exactly as it
+      will look in the real app — with every variant and state.
+    </p>
+    <div class="demo-area">
+      <div class="demo-box">
+        <div class="demo-icon">🎨</div>
+        <h3>Your Figma design</h3>
+        <p>The source of truth. You design components here as you always have.</p>
+      </div>
+      <div class="demo-box">
+        <div class="demo-icon">🖥️</div>
+        <h3>Storybook preview</h3>
+        <p>A live view of the real component. You check it matches your design before approving.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: What happens when you approve -->
+  <div class="slide slide--content" data-slide="7">
+    <span class="badge">After You Approve</span>
+    <h2>Everything else is automatic</h2>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="number">1</span>
+        <span class="label">You approve</span>
+        <div class="sublabel">"Yes, ship it"</div>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">
+        <span class="number">2</span>
+        <span class="label">Code is saved</span>
+        <div class="sublabel">To the shared library</div>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">
+        <span class="number">3</span>
+        <span class="label">Preview updates</span>
+        <div class="sublabel">Public Storybook</div>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">
+        <span class="number">4</span>
+        <span class="label">Apps can use it</span>
+        <div class="sublabel">New version ready</div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      You don't need to do anything after clicking "approve". The system handles publishing, versioning, and making it
+      available to all apps.
+    </div>
+  </div>
+
+  <!-- Slide 8: What you don't need to know -->
+  <div class="slide slide--accent" data-slide="8">
+    <h1>You don't need to learn to code.</h1>
+    <p class="subtitle">Claude handles the code. You handle the design. The system connects both.</p>
+  </div>
+
+  <!-- Slide 9: What if it's wrong -->
+  <div class="slide slide--dark" data-slide="9">
+    <span class="badge">Iteration</span>
+    <h2>What if the preview doesn't look right?</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">You click <strong>"No, it needs tweaks"</strong></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">The changes are <strong>discarded</strong> — nothing broken, nothing shipped</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">You <strong>adjust the design</strong> in Figma</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">You share the <strong>updated Figma link</strong></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">Claude tries again — <strong>as many times as needed</strong></div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:40px;">
+      There's no risk. Nothing goes live until you explicitly approve it.
+    </div>
+  </div>
+
+  <!-- Slide 10: What about devs -->
+  <div class="slide slide--content" data-slide="10">
+    <span class="badge">Collaboration</span>
+    <h2>What about the developers?</h2>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;margin-bottom:32px;">
+      Developers are still part of the process. Here's what changes for them:
+    </p>
+    <ul>
+      <li>They use your components instead of building their own</li>
+      <li>They can suggest changes — you review them visually</li>
+      <li>They focus on app features, not rebuilding UI elements</li>
+      <li>Fewer mismatches between design and what users see</li>
+    </ul>
+    <div class="highlight-box">
+      This doesn't replace developers. It frees them to work on the things only they can do — while giving you control
+      over the design details.
+    </div>
+  </div>
+
+  <!-- Slide 11: Your new superpowers -->
+  <div class="slide slide--dark" data-slide="11">
+    <span class="badge">Summary</span>
+    <h2>Your new superpowers</h2>
+    <ul>
+      <li>Ship components the same day you design them</li>
+      <li>Guarantee pixel-perfect consistency across all apps</li>
+      <li>Update a color or spacing and every app gets it</li>
+      <li>No more "it doesn't look like the design"</li>
+      <li>Figma stays your single source of truth</li>
+    </ul>
+  </div>
+
+  <!-- Slide 12: Section divider -->
+  <div class="slide slide--accent" data-slide="12">
+    <h1>How to use it</h1>
+    <p class="subtitle">A step-by-step guide. No coding knowledge needed.</p>
+  </div>
+
+  <!-- Slide 13: One-time setup — what you install -->
+  <div class="slide slide--content" data-slide="13">
+    <span class="badge">One-Time Setup</span>
+    <h2>Before your first time (1/2)</h2>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;margin-bottom:40px;">
+      Someone from the team will help you set this up once. Here's what gets installed and why:
+    </p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="margin-top:6px;"></div>
+        <div class="timeline-content">
+          <strong>Claude Code</strong><br>
+          <span style="color:#555;">The AI assistant that reads your Figma designs and writes the code. It runs in the
+            Terminal on your Mac.</span><br>
+          <span style="font-size:20px;color:#888;">→ <a href="https://docs.anthropic.com/en/docs/claude-code"
+              target="_blank" style="color:#760fca;">docs.anthropic.com/claude-code</a></span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="margin-top:6px;"></div>
+        <div class="timeline-content">
+          <strong>The design system project</strong><br>
+          <span style="color:#555;">All our components and their code, downloaded from GitHub to your computer. Think of
+            it like syncing a shared Figma file, but for code.</span><br>
+          <span style="font-size:20px;color:#888;">→ <a href="https://github.com/pijiola/shoppa-ds" target="_blank"
+              style="color:#760fca;">github.com/pijiola/shoppa-ds</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 14: One-time setup — what you run -->
+  <div class="slide slide--content" data-slide="14">
+    <span class="badge">One-Time Setup</span>
+    <h2>Before your first time (2/2)</h2>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;margin-bottom:40px;">
+      Two commands get everything ready:
+    </p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="margin-top:6px;"></div>
+        <div class="timeline-content">
+          <strong>Install dependencies</strong> — <code
+            style="background:rgba(118,15,202,0.1);padding:2px 8px;border-radius:4px;font-size:18px;">npm install</code><br>
+          <span style="color:#555;">Downloads everything the project needs to run. Like installing fonts before opening
+            a file.</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="margin-top:6px;"></div>
+        <div class="timeline-content">
+          <strong>Start Storybook</strong> — <code
+            style="background:rgba(118,15,202,0.1);padding:2px 8px;border-radius:4px;font-size:18px;">npm run storybook</code><br>
+          <span style="color:#555;">Launches the live preview tool in your browser. This is where you'll review
+            components before approving them.</span><br>
+          <span style="font-size:20px;color:#888;">→ Public version: <a href="https://pijiola.github.io/shoppa-ds/"
+              target="_blank" style="color:#760fca;">pijiola.github.io/shoppa-ds</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      This whole setup takes about 10 minutes and you only do it once. After that, you just open the Terminal and type
+      <strong>claude</strong>.
+    </div>
+  </div>
+
+  <!-- Slide 15: Open the terminal -->
+  <div class="slide slide--dark" data-slide="15">
+    <span class="badge">Step 1</span>
+    <h2>Open the Terminal</h2>
+    <p style="font-size:24px;opacity:0.8;max-width:800px;line-height:1.7;margin-bottom:32px;">
+      The Terminal is an app already on your Mac. Think of it as a text-based chat — you type, the computer responds.
+    </p>
+    <div class="terminal-mock">
+      <div class="terminal-bar">
+        <span class="terminal-dot" style="background:#ff5f57;"></span>
+        <span class="terminal-dot" style="background:#febc2e;"></span>
+        <span class="terminal-dot" style="background:#28c840;"></span>
+        <span class="terminal-title">Terminal</span>
+      </div>
+      <div class="terminal-body">
+        <span class="terminal-prompt">Open <strong>Spotlight</strong> (⌘ + Space)</span><br>
+        <span class="terminal-prompt">Type <strong>Terminal</strong></span><br>
+        <span class="terminal-prompt">Press <strong>Enter</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 16: Navigate to the project -->
+  <div class="slide slide--dark" data-slide="16">
+    <span class="badge">Step 2</span>
+    <h2>Go to the project folder</h2>
+    <p style="font-size:24px;opacity:0.8;max-width:700px;line-height:1.7;margin-bottom:32px;">
+      Type this and press Enter. It tells the computer where the design system lives.
+    </p>
+    <div class="terminal-mock">
+      <div class="terminal-bar">
+        <span class="terminal-dot" style="background:#ff5f57;"></span>
+        <span class="terminal-dot" style="background:#febc2e;"></span>
+        <span class="terminal-dot" style="background:#28c840;"></span>
+        <span class="terminal-title">Terminal</span>
+      </div>
+      <div class="terminal-body">
+        <span class="terminal-dim">$</span> <span class="terminal-typed">cd ~/Dev/Design\ Systems/shoppa-ds</span>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:32px;">
+      Tip: you can also drag the folder from Finder into the Terminal window after typing "cd ".
+    </div>
+  </div>
+
+  <!-- Slide 17: Start Claude -->
+  <div class="slide slide--dark" data-slide="17">
+    <span class="badge">Step 3</span>
+    <h2>Start Claude</h2>
+    <p style="font-size:24px;opacity:0.8;max-width:700px;line-height:1.7;margin-bottom:32px;">
+      Type this and press Enter. Claude will start and greet you.
+    </p>
+    <div class="terminal-mock">
+      <div class="terminal-bar">
+        <span class="terminal-dot" style="background:#ff5f57;"></span>
+        <span class="terminal-dot" style="background:#febc2e;"></span>
+        <span class="terminal-dot" style="background:#28c840;"></span>
+        <span class="terminal-title">Terminal</span>
+      </div>
+      <div class="terminal-body">
+        <span class="terminal-dim">$</span> <span class="terminal-typed">claude</span><br><br>
+        <span class="terminal-dim">╭──────────────────────────────────╮</span><br>
+        <span class="terminal-dim">│</span> <span style="color:#ffd500;">✦</span> Welcome to Claude Code! <span
+          class="terminal-dim">│</span><br>
+        <span class="terminal-dim">╰──────────────────────────────────╯</span><br><br>
+        <span class="terminal-dim">How can I help you today?</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 18: Run the skill -->
+  <div class="slide slide--dark" data-slide="18">
+    <span class="badge">Step 4</span>
+    <h2>Use a command + your Figma link</h2>
+    <p style="font-size:24px;opacity:0.8;max-width:700px;line-height:1.7;margin-bottom:32px;">
+      You have two commands. Pick the one that fits, paste your Figma link after it, and press Enter.
+    </p>
+    <div style="display:flex;gap:32px;max-width:900px;width:100%;">
+      <div class="terminal-mock" style="flex:1;">
+        <div class="terminal-bar">
+          <span class="terminal-dot" style="background:#ff5f57;"></span>
+          <span class="terminal-dot" style="background:#febc2e;"></span>
+          <span class="terminal-dot" style="background:#28c840;"></span>
+          <span class="terminal-title">Update an existing component</span>
+        </div>
+        <div class="terminal-body" style="font-size:16px;">
+          <span class="terminal-dim">></span> <span class="terminal-typed">/update-component</span><br>
+          <span class="terminal-typed">https://figma.com/design/...</span><br><br>
+          <span class="terminal-dim">Reading the Figma design...</span><br>
+          <span class="terminal-dim">Updating the component...</span><br>
+          <span style="color:#28c840;">✓ Opening Storybook</span>
+        </div>
+      </div>
+      <div class="terminal-mock" style="flex:1;">
+        <div class="terminal-bar">
+          <span class="terminal-dot" style="background:#ff5f57;"></span>
+          <span class="terminal-dot" style="background:#febc2e;"></span>
+          <span class="terminal-dot" style="background:#28c840;"></span>
+          <span class="terminal-title">Create a brand new component</span>
+        </div>
+        <div class="terminal-body" style="font-size:16px;">
+          <span class="terminal-dim">></span> <span class="terminal-typed">/new-component</span><br>
+          <span class="terminal-typed">https://figma.com/design/...</span><br><br>
+          <span class="terminal-dim">Reading the Figma design...</span><br>
+          <span class="terminal-dim">Creating the component...</span><br>
+          <span style="color:#28c840;">✓ Opening Storybook</span>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:32px;">
+      Copy the Figma link from your browser's address bar and paste it after the command.
+    </div>
+  </div>
+
+  <!-- Slide 19: Review and approve -->
+  <div class="slide slide--content" data-slide="19">
+    <span class="badge">Step 5</span>
+    <h2>Review and approve</h2>
+    <p style="font-size:24px;color:#555;max-width:800px;line-height:1.7;margin-bottom:32px;">
+      Storybook opens in your browser automatically. Back in the terminal, Claude asks you a simple question:
+    </p>
+    <div class="terminal-mock" style="max-width:600px;">
+      <div class="terminal-bar">
+        <span class="terminal-dot" style="background:#ff5f57;"></span>
+        <span class="terminal-dot" style="background:#febc2e;"></span>
+        <span class="terminal-dot" style="background:#28c840;"></span>
+        <span class="terminal-title">Terminal — Claude Code</span>
+      </div>
+      <div class="terminal-body" style="font-size:17px;">
+        <span style="color:#cba6f7;">?</span> <span style="color:#cdd6f4;font-weight:500;">Is the component good to
+          go?</span><br><br>
+        <span style="color:#a6e3a1;">●</span> <span style="color:#a6e3a1;">Yes, commit and push</span><br>
+        <span style="color:#6c7086;">○</span> <span style="color:#6c7086;">No, it needs tweaks</span><br>
+        <span style="color:#6c7086;">○</span> <span style="color:#6c7086;">Other</span>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:32px;">
+      Use the arrow keys (↑ ↓) to move between options and press Enter to confirm. Compare what you see in Storybook
+      with your Figma design.
+    </div>
+  </div>
+
+  <!-- Slide 20: That's it -->
+  <div class="slide slide--accent" data-slide="20">
+    <h1>That's it.</h1>
+    <p class="subtitle">Three commands to remember:<br><br>
+      <span style="font-weight:600;">claude</span> — to start a conversation<br>
+      <span style="font-weight:600;">/update-component</span> — to update an existing component<br>
+      <span style="font-weight:600;">/new-component</span> — to create a brand new one
+    </p>
+  </div>
+
+  <!-- Slide 21: Cheat sheet -->
+  <div class="slide slide--content" data-slide="21">
+    <span class="badge">Cheat Sheet</span>
+    <h2>Keep this handy</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px;">
+      <div style="background:rgba(0,12,82,0.06);border-radius:16px;padding:32px;">
+        <h3 style="font-size:20px;color:#760fca;margin-bottom:16px;">Every time you start</h3>
+        <div class="cheat-step"><span class="cheat-num">1</span> Open Terminal (⌘ + Space → "Terminal")</div>
+        <div class="cheat-step"><span class="cheat-num">2</span> Go to the project folder</div>
+        <div class="cheat-step"><span class="cheat-num">3</span> Type <strong>claude</strong> and press Enter</div>
+      </div>
+      <div style="background:rgba(0,12,82,0.06);border-radius:16px;padding:32px;">
+        <h3 style="font-size:20px;color:#760fca;margin-bottom:16px;">To update a component</h3>
+        <div class="cheat-step"><span class="cheat-num">1</span> Copy the Figma link from your browser</div>
+        <div class="cheat-step"><span class="cheat-num">2</span> Type <strong>/update-component</strong> + paste the
+          link</div>
+        <div class="cheat-step"><span class="cheat-num">3</span> Review in Storybook → Approve or reject</div>
+      </div>
+      <div style="background:rgba(0,12,82,0.06);border-radius:16px;padding:32px;">
+        <h3 style="font-size:20px;color:#760fca;margin-bottom:16px;">To add a new component</h3>
+        <div class="cheat-step"><span class="cheat-num">1</span> Copy the Figma link from your browser</div>
+        <div class="cheat-step"><span class="cheat-num">2</span> Type <strong>/new-component</strong> + paste the link
+        </div>
+        <div class="cheat-step"><span class="cheat-num">3</span> Review in Storybook → Approve or reject</div>
+      </div>
+      <div style="background:rgba(255,101,143,0.1);border-radius:16px;padding:32px;">
+        <h3 style="font-size:20px;color:#ff658f;margin-bottom:16px;">If something goes wrong</h3>
+        <div class="cheat-step"><span class="cheat-num">1</span> Don't panic — nothing ships without your approval</div>
+        <div class="cheat-step"><span class="cheat-num">2</span> Click "No, it needs tweaks" to discard changes</div>
+        <div class="cheat-step"><span class="cheat-num">3</span> Ask Claude in plain language what happened</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 22: CTA -->
+  <div class="slide slide--title" data-slide="22">
+    <h1>Ready to try it?</h1>
+    <p class="subtitle" style="margin-top:24px;">
+      Open the Terminal.<br>
+      Start Claude.<br>
+      Recruit a skill + a Figma link.<br>
+      Watch it come to life.
+    </p>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button onclick="prev()">←</button>
+    <button onclick="next()">→</button>
+  </div>
+  <div class="progress" id="progress"></div>
+  <div class="slide-counter" id="counter"></div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function show(index) {
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(index, slides.length - 1));
+      slides[current].classList.add('active');
+      document.getElementById('progress').style.width = ((current + 1) / slides.length * 100) + '%';
+      document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    function next() { show(current + 1); }
+    function prev() { show(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+
+    show(0);
+  </script>
+</body>
+
+</html>
