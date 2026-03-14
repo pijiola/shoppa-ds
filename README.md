@@ -1,73 +1,84 @@
-# React + TypeScript + Vite
+# ShoppaAI Design System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+`@shopfully/shoppa-ds` — the shared component library for ShoppaAI apps.
 
-Currently, two official plugins are available:
+## Quick start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Configure the registry
 
-## React Compiler
+Add a `.npmrc` file to your project root:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+@shopfully:registry=https://npm.pkg.github.com
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install @shopfully/shoppa-ds
 ```
+
+### 3. Import components
+
+```tsx
+import { BottomBar } from "@shopfully/shoppa-ds";
+import "@shopfully/shoppa-ds/tokens";
+
+function App() {
+  const [tab, setTab] = useState<"Shoppa" | "My list" | "Profile">("Shoppa");
+  return <BottomBar active={tab} onTabChange={setTab} />;
+}
+```
+
+### 4. Import design tokens (optional)
+
+If you only need the tokens (colors, spacing, radius) without the components:
+
+```css
+@import "@shopfully/shoppa-ds/tokens";
+```
+
+Then use them in your CSS:
+
+```css
+.my-element {
+  padding: var(--space-16);
+  color: var(--color-brand-orange);
+  border-radius: var(--radius-md);
+}
+```
+
+## Available components
+
+| Component | Description |
+|-----------|-------------|
+| `BottomBar` | Bottom navigation with 3 tabs: ShoppaAI, My Lists, Profile |
+
+## Design tokens
+
+| Category | Pattern | Example |
+|----------|---------|---------|
+| Spacing | `--space-{4\|8\|12\|16\|24\|32\|40\|48}` | `var(--space-16)` |
+| Radius | `--radius-{sm\|md\|lg\|xl}` | `var(--radius-md)` |
+| Colors | `--color-{category}-{name}` | `var(--color-brand-orange)` |
+| Typography | `--text-{size}-{property}` | `var(--text-4xl-font-size)` |
+
+## Live Storybook
+
+Browse all components and their variants: **https://pijiola.github.io/shoppa-ds/**
+
+## Want to change a component?
+
+1. Clone this repo and create a branch
+2. Make your changes
+3. Open a PR to `main` — a preview Storybook will be built for review
+4. Once approved and merged, the package is automatically versioned and published
+
+## How it works
+
+- **Figma** is the source of truth for design
+- **This repo** contains the React components, built from Figma designs
+- **GitHub Actions** handle everything on push to `main`:
+  - Storybook deploys to GitHub Pages
+  - Package version is bumped and published to GitHub Packages
+- **Dev teams** install the package and get updates via `npm update`
