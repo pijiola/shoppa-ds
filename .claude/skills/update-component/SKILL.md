@@ -37,8 +37,10 @@ Follow existing project conventions (see CLAUDE.md):
 - Extract SVG icons as React components (inline SVG, not image URLs)
 
 ## Step 5 — Ask for review
-Tell the user to check Storybook at http://localhost:6006 (it hot-reloads automatically).
-Wait for the user's approval before proceeding. If changes are needed, iterate.
+Use the AskUserQuestion tool to ask the user to review the changes. The question must include a clickable Storybook link and two clear options:
+- question: "Check the updated component in Storybook: [http://localhost:6006](http://localhost:6006). Is it good to go?"
+- options: ["Yes, commit and push", "No, it needs tweaks"]
+If the user picks "No, it needs tweaks", ask what needs to change and iterate from Step 4.
 
 ## Step 6 — Commit and push (only after user approval)
 - Stage only the changed files (not `git add -A`)
