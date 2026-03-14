@@ -84,6 +84,6 @@ Wait for the user's approval before proceeding. If changes are needed, iterate.
 - Write a commit message like: "Add ComponentName component from Figma"
 - Push to the `main` branch on GitHub
 
-## Step 8 — Publish to Chromatic
-Run: `npx chromatic --project-token=chpt_27e993fdd8b97b4`
-Share the published Storybook URL with the user.
+## Done
+The push to `main` automatically triggers a GitHub Pages deployment.
+The public Storybook will be updated at: https://pijiola.github.io/shoppa-ds/

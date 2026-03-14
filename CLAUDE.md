@@ -95,7 +95,7 @@ Components are designed from Figma using the MCP server. When reading a Figma de
 ## Publishing
 
 - **GitHub:** `git push` to `main` at https://github.com/pijiola/shoppa-ds
-- **Chromatic:** `npx chromatic --project-token=chpt_27e993fdd8b97b4`
+- **Storybook:** Auto-deploys to GitHub Pages on push → https://pijiola.github.io/shoppa-ds/
 - **Build:** `npm run build` (Vite bundle + TypeScript declarations)
 
 ## Figma Files
