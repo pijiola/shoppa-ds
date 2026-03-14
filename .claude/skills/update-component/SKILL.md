@@ -37,8 +37,9 @@ Follow existing project conventions (see CLAUDE.md):
 - Extract SVG icons as React components (inline SVG, not image URLs)
 
 ## Step 5 — Ask for review
-Use the AskUserQuestion tool to ask the user to review the changes. The question must include a clickable Storybook link and two clear options:
-- question: "Check the updated component in Storybook: [http://localhost:6006](http://localhost:6006). Is it good to go?"
+First, open Storybook in the user's browser: `open http://localhost:6006`
+Then use the AskUserQuestion tool with:
+- question: "I've opened Storybook in your browser. Is the component good to go?"
 - options: ["Yes, commit and push", "No, it needs tweaks"]
 If the user picks "No, it needs tweaks", ask what needs to change and iterate from Step 4.
 
