@@ -41,7 +41,7 @@ First, open Storybook in the user's browser: `open http://localhost:6006`
 Then use the AskUserQuestion tool with:
 - question: "I've opened Storybook in your browser. Is the component good to go?"
 - options: ["Yes, commit and push", "No, it needs tweaks"]
-If the user picks "No, it needs tweaks", ask what needs to change and iterate from Step 4.
+If the user picks "No, it needs tweaks", discard the local changes (`git checkout -- .`), ask the user for the updated Figma link, and restart from Step 2.
 
 ## Step 6 — Commit and push (only after user approval)
 - Stage only the changed files (not `git add -A`)
