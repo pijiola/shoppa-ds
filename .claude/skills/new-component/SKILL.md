@@ -19,17 +19,20 @@ Use `mcp__figma__get_design_context` to fetch the design from the Figma URL prov
 Extract the fileKey and nodeId from the URL.
 If the node is a component set with variants, analyze all variants.
 
-## Step 3 — Plan the component
+## Step 3 — Read existing tokens
+BEFORE writing any code, read `src/tokens/tokens.css` to know all available tokens.
+
+## Step 4 — Plan the component
 Before writing code, describe to the user:
 - Component name
 - Props interface (mapped from Figma variants/properties)
 - Any new icons needed
-- Any new tokens needed
+- Any new tokens needed (list each new color, spacing, or font value from Figma that has no matching token)
 - Accessibility considerations
 
 Wait for the user to confirm the plan.
 
-## Step 4 — Create the component files
+## Step 5 — Create the component files
 Follow the project conventions (see CLAUDE.md). Create:
 
 ### Component folder structure:
@@ -41,17 +44,15 @@ src/components/ComponentName/
 └── index.ts
 ```
 
-### ComponentName.tsx:
+### STRICT RULES for all files:
+- EVERY color, spacing, radius, and font value in CSS MUST use a `var(--token)` reference
+- If a Figma value has no matching token, create a new token in `tokens.css` FIRST
+- NEVER hardcode hex colors, pixel spacing, or pixel radius in component CSS
+- Use BEM naming: `.component-name`, `.component-name__element`, `.component-name__element--modifier`
 - Functional component with TypeScript interface
 - Controlled component pattern (value + onChange callback)
 - Semantic HTML with ARIA attributes
 - Named export (not default)
-
-### ComponentName.css:
-- BEM naming: `.component-name`, `.component-name__element`, `.component-name__element--modifier`
-- Use CSS custom properties from tokens.css
-- Flexbox for layout, `gap` for spacing
-- Transitions for interactive states
 
 ### ComponentName.stories.tsx:
 - Meta with `autodocs` tag
@@ -60,30 +61,37 @@ src/components/ComponentName/
 - Individual variant stories
 - `AllVariants` story for visual comparison
 
-### index.ts:
-- Export the component and its types
-
 ### New icons (if needed):
 - Create in `src/components/Icons/` with standard `{ color, size }` props
 - Add to `src/components/Icons/index.ts`
 - Download SVG paths from Figma asset URLs and use inline SVG
 
 ### New tokens (if needed):
-- Add to `src/tokens/tokens.css`
-- Update CLAUDE.md if significant new token categories are added
+- Add to `src/tokens/tokens.css` BEFORE referencing them in component CSS
 
-## Step 5 — Update library entry point
+After writing all code, re-read every CSS file and verify every value uses a token.
+
+## Step 6 — Update library entry point
 Add the new component export to `src/index.ts`.
 
-## Step 6 — Ask for review
-Tell the user to check Storybook at http://localhost:6006.
-Wait for the user's approval before proceeding. If changes are needed, iterate.
+## Step 7 — Ask for review
+First, open Storybook in the user's browser: `open http://localhost:6006`
+Then use the AskUserQuestion tool with EXACTLY these values:
+- question: "Looks good?"
+- options: ["Yes", "No, it needs tweaks"]
 
-## Step 7 — Commit and push (only after user approval)
+There are ONLY two outcomes:
+- **"Yes"** → proceed to Step 8 (commit and push)
+- **"No, it needs tweaks"** → discard all local changes (`git checkout -- .`), ask the user for the updated Figma link, and restart from Step 2
+
+Do NOT ask open-ended questions. Do NOT ask what needs to change. Just discard and wait for a new Figma link.
+
+## Step 8 — Commit and push (only after user approval)
 - Stage the new files and any modified files
 - Write a commit message like: "Add ComponentName component from Figma"
 - Push to the `main` branch on GitHub
 
 ## Done
-The push to `main` automatically triggers a GitHub Pages deployment.
-The public Storybook will be updated at: https://pijiola.github.io/shoppa-ds/
+After pushing to `main`, GitHub Actions automatically:
+- Deploys Storybook to GitHub Pages
+- Bumps the patch version, tags, and publishes to GitHub Packages

@@ -11,11 +11,19 @@ This is the **ShoppaAI Design System** (`@shopfully/shoppa-ds`), a React compone
 - **Testing:** Vitest + Playwright + Chromatic visual regression
 - **Font:** Outfit (Google Fonts, loaded in `.storybook/preview-head.html`)
 
-## Design Tokens
+## Design Tokens — STRICT RULES
 
 All tokens live in `src/tokens/tokens.css` as CSS custom properties on `:root`.
 
-**Always use tokens — never hardcode values.** Map Figma variables to existing tokens:
+**NEVER hardcode color values, spacing, radius, or typography values in component CSS. ALWAYS use tokens.**
+
+Before writing or updating any component, you MUST:
+1. Read `src/tokens/tokens.css` to know what tokens exist
+2. Check if the Figma design uses values that already have a token
+3. If a value has no matching token, ADD a new token to `tokens.css` first, then reference it
+4. Every color, spacing, radius, and font value in component CSS MUST be a `var(--token-name)` reference
+
+Map Figma variables to existing tokens:
 
 | Category | Pattern | Example |
 |---|---|---|
@@ -51,7 +59,7 @@ src/components/ComponentName/
 ### CSS patterns:
 - **BEM naming:** `.block`, `.block__element`, `.block__element--modifier`
 - **One CSS file per component**, imported in the TSX
-- **Use token variables**, not hardcoded values
+- **ONLY token variables** — no hardcoded hex colors, no hardcoded pixel values for spacing/radius
 - **Flexbox** for layout, `gap` for spacing
 - **Transitions** for interactive states (e.g., `transition: color 0.2s`)
 - **`color: inherit`** on child elements to cascade from parent
@@ -87,10 +95,12 @@ interface IconProps {
 
 Components are designed from Figma using the MCP server. When reading a Figma design:
 1. Use `get_design_context` to fetch the component
-2. Map Figma properties to React props
-3. Map Figma variables to CSS custom properties in `tokens.css`
-4. Extract SVG icons as React components (inline SVG, not image URLs)
-5. Never use Tailwind classes from Figma output — convert to BEM CSS with tokens
+2. Read `src/tokens/tokens.css` BEFORE writing any code
+3. Map Figma properties to React props
+4. Map ALL Figma color/spacing/radius/font values to tokens — create new tokens if needed
+5. Extract SVG icons as React components (inline SVG, not image URLs)
+6. Never use Tailwind classes from Figma output — convert to BEM CSS with tokens
+7. After writing code, verify EVERY value in the CSS file uses a token variable
 
 ## Publishing
 
